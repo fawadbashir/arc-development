@@ -13,7 +13,11 @@ const Contact = () => {
 	const matchesMD = useMediaQuery(theme.breakpoints.down('md'))
 	const matchesSM = useMediaQuery(theme.breakpoints.down('sm'))
 
-	return <Grid container></Grid>
+	return (
+		<Grid container>
+			<Grid item></Grid>
+		</Grid>
+	)
 }
 
 export default Contact
