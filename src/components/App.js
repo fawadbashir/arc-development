@@ -12,6 +12,7 @@ import MobileApps from './MobileApps'
 import Websites from './Websites'
 import RevolutionPage from './RevolutionPage'
 import About from './About'
+import Contact from './Contact'
 
 function App() {
 	const [value, setValue] = useState(0)
@@ -53,7 +54,7 @@ function App() {
 							<About />
 						</Route>
 						<Route exact path='/contact'>
-							<div>Contact Us</div>
+							<Contact />
 						</Route>
 						<Route exact path='/estimate'>
 							<div>Free Estimate</div>

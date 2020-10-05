@@ -1,12 +1,88 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import ArrowButton from './ui/ArrowButton'
 
-const useStyles = makeStyles((theme) => ({}))
+import { Link } from 'react-router-dom'
+
+import airplane from '../assets/send.svg'
+import phoneIcon from '../assets/phone.svg'
+import emailIcon from '../assets/email.svg'
+import background from '../assets/background.jpg'
+import mobileBackground from '../assets/mobileBackground.jpg'
+
+const useStyles = makeStyles((theme) => ({
+	background: {
+		backgroundImage: `url(${background})`,
+		// width: '100%',
+		height: '60em',
+		backgroundRepeat: 'no-repeat',
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+		paddingBottom: '10em',
+		// backgroundAttachment: 'fixed',
+		[theme.breakpoints.down('md')]: {
+			backgroundImage: `url(${mobileBackground})`,
+			backgroundAttachment: 'inherit',
+		},
+	},
+
+	estimate: {
+		...theme.typography.estimate,
+		backgroundColor: theme.palette.common.orange,
+		marginLeft: '2em',
+		marginRight: '5em',
+		borderRadius: '50px',
+		fontSize: '1.5rem',
+		color: 'white',
+		height: '80px',
+		width: '205px',
+		'&:hover': {
+			backgroundColor: theme.palette.secondary.light,
+		},
+		[theme.breakpoints.down('md')]: {
+			marginRight: 0,
+			marginLeft: 0,
+		},
+	},
+	learnButton: {
+		...theme.typography.learnButton,
+		fontSize: '0.7rem',
+		height: '35px',
+		padding: '5px',
+		[theme.breakpoints.down('sm')]: {
+			marginBottom: '2em',
+		},
+	},
+
+	message: {
+		border: `2px solid ${theme.palette.common.blue}`,
+		marginTop: '5em',
+		borderRadius: 5,
+	},
+	sendButton: {
+		...theme.typography.estimate,
+		borderRadius: 50,
+		height: 45,
+		width: 245,
+		fontSize: '1rem',
+		backgroundColor: theme.palette.common.orange,
+		'&:hover': {
+			backgroundColor: theme.palette.secondary.light,
+		},
+	},
+}))
 
 const Contact = () => {
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [phone, setPhone] = useState('')
+	const [message, setMessage] = useState('')
+
 	const classes = useStyles()
 	const theme = useTheme()
 	const matchesMD = useMediaQuery(theme.breakpoints.down('md'))
@@ -14,7 +90,224 @@ const Contact = () => {
 
 	return (
 		<Grid container>
-			<Grid item></Grid>
+			<Grid
+				item
+				container
+				direction='column'
+				justify='center'
+				alignItems='center'
+				lg={4}
+				xl={3}
+				style={{
+					marginTop: matchesMD ? '5em' : '0',
+					marginBottom: matchesMD ? '5em' : '0',
+				}}
+			>
+				<Grid item>
+					<Grid
+						container
+						direction='column'
+						// justify='center'
+						// alignItems='center'
+						// lg={3}
+					>
+						<Grid item>
+							<Typography variant='h2' style={{ lineHeight: 1 }}>
+								Contact Us
+							</Typography>
+							<Typography
+								variant='body1'
+								style={{ color: theme.palette.common.blue }}
+							>
+								We're waiting
+							</Typography>
+						</Grid>
+						<Grid
+							container
+							item
+							style={{ marginTop: '2em' }}
+							// alignItems='flex-end'
+						>
+							<Grid item>
+								<img
+									src={phoneIcon}
+									alt='phone'
+									style={{ marginRight: '0.5em', verticalAlign: 'bottom' }}
+								/>
+							</Grid>
+							<Grid item>
+								<Typography
+									variant='body1'
+									component={Link}
+									to='/'
+									paragraph
+									style={{
+										color: 'rgb(11, 114, 185)',
+										fontSize: '1rem',
+										textDecoration: 'none',
+									}}
+									align='center'
+								>
+									(316) 358-9320
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid item container style={{ marginBottom: '2em' }}>
+							<Grid item>
+								<img
+									src={emailIcon}
+									alt='envelope'
+									style={{ marginRight: '0.5em', verticalAlign: 'bottom' }}
+								/>
+							</Grid>
+							<Grid item style={{ textDecoration: 'none' }}>
+								<Typography
+									variant='body1'
+									component={Link}
+									to='zachary@arcsoftwaredevelopment.com'
+									paragraph
+									style={{
+										color: 'rgb(11, 114, 185)',
+										fontSize: '1rem',
+										textDecoration: 'none',
+									}}
+									align='center'
+								>
+									zachary@arcsoftwaredevelopment.com
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid
+							item
+							container
+							direction='column'
+							style={{ maxWidth: '20em' }}
+						>
+							<Grid item style={{ marginBottom: '0.5em' }}>
+								<TextField
+									fullWidth
+									variant='standard'
+									label='Name'
+									color='primary'
+									id='name'
+									value={name}
+									onChange={(e) => setName(e.target.value)}
+									InputLabelProps={{ shrink: true }}
+								/>
+							</Grid>
+							<Grid item style={{ marginBottom: '0.5em' }}>
+								<TextField
+									fullWidth
+									color='primary'
+									variant='standard'
+									label='Email'
+									id='email'
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									InputLabelProps={{ shrink: true }}
+								/>
+							</Grid>
+							<Grid item style={{ marginBottom: '0.5em' }}>
+								<TextField
+									color='primary'
+									variant='standard'
+									label='Phone'
+									id='phone'
+									fullWidth
+									value={phone}
+									onChange={(e) => setPhone(e.target.value)}
+									InputLabelProps={{ shrink: true }}
+								/>
+							</Grid>
+						</Grid>
+						<Grid item>
+							<TextField
+								fullWidth
+								InputProps={{ underline: 'false' }}
+								className={classes.message}
+								multiline
+								variant='outlined'
+								rows={10}
+								id='message'
+								value={message}
+								onChange={(e) => setMessage(e.target.value)}
+							/>
+						</Grid>
+						<Grid item container justify='center' style={{ marginTop: '2em' }}>
+							<Button
+								variant='contained'
+								className={classes.sendButton}
+								disableElevation
+							>
+								Send Message{' '}
+								<img
+									src={airplane}
+									alt='paper airplane'
+									style={{ marginLeft: '1em', verticalAlign: 'middle' }}
+								/>
+							</Button>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+			{/* //CallTo action */}
+			<Grid
+				item
+				container
+				className={classes.background}
+				alignItems='center'
+				direction={matchesMD ? 'column' : 'row'}
+				justify={matchesMD ? 'center' : undefined}
+				lg={8}
+				xl={9}
+			>
+				<Grid
+					item
+					style={{
+						marginLeft: matchesMD ? 0 : '3em',
+						// marginRight: matchesMD ? 0 : '2em',
+					}}
+				>
+					<Grid
+						container
+						direction='column'
+						alignItems={matchesMD ? 'center' : 'flex-start'}
+						style={{ textAlign: matchesMD ? 'center' : 'inherit' }}
+					>
+						<Grid item>
+							<Typography variant='h2'>
+								Simple Software. <br /> Revolutionary Results.
+							</Typography>
+							<Typography variant='subtitle2'>
+								Take advantage of the 21st Century.
+							</Typography>
+						</Grid>
+
+						<Grid item>
+							<Button
+								component={Link}
+								to='/revolution'
+								variant='outlined'
+								className={classes.learnButton}
+								color='primary'
+							>
+								<span style={{ marginRight: 5 }}>Learn More</span>
+								<ArrowButton width={10} height={10} fill='blue' />
+							</Button>
+						</Grid>
+					</Grid>
+				</Grid>
+				<Grid item lg>
+					<Button
+						component={Link}
+						to='/estimate'
+						variant='contained'
+						className={classes.estimate}
+					>
+						Free Estimate
+					</Button>
+				</Grid>
+			</Grid>
 		</Grid>
 	)
 }
