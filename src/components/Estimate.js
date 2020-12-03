@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import Lottie from 'react-lottie'
+import { cloneDeep } from 'lodash'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 
-import check from '../assets/check.svg'
-import send from '../assets/send.svg'
+// import check from '../assets/check.svg'
+// import send from '../assets/send.svg'
 import software from '../assets/software.svg'
 import mobile from '../assets/mobile.svg'
 import website from '../assets/website.svg'
@@ -309,6 +310,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Estimate = () => {
   const classes = useStyles()
+  const [questions, setQuestions] = useState(softwareQuestions)
+  const theme = useTheme()
 
   const defaultOptions = {
     loop: true,
@@ -317,6 +320,48 @@ const Estimate = () => {
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
+  }
+
+  const nextQuestion = () => {
+    const newQuestions = cloneDeep(questions)
+    const currentlyActive = newQuestions.filter((question) => question.active)
+    const activeIndex = currentlyActive[0].id - 1
+    const nextIndex = activeIndex + 1
+
+    newQuestions[activeIndex] = { ...currentlyActive[0], active: false }
+    newQuestions[nextIndex] = { ...newQuestions[nextIndex], active: true }
+
+    setQuestions(newQuestions)
+  }
+
+  const previousQuestion = () => {
+    const newQuestions = cloneDeep(questions)
+    const currentlyActive = newQuestions.filter((question) => question.active)
+    const activeIndex = currentlyActive[0].id - 1
+    const nextIndex = activeIndex - 1
+
+    newQuestions[activeIndex] = { ...currentlyActive[0], active: false }
+    newQuestions[nextIndex] = { ...newQuestions[nextIndex], active: true }
+    setQuestions(newQuestions)
+  }
+
+  const navigationPreviousDisabled = () => {
+    const currentlyActive = questions.filter((question) => question.active)
+
+    if (currentlyActive[0].id === 1) {
+      return true
+    } else {
+      return false
+    }
+  }
+  const navigationNextDisabled = () => {
+    const currentlyActive = questions.filter((question) => question.active)
+
+    if (currentlyActive[0].id === questions[questions.length - 1].id) {
+      return true
+    } else {
+      return false
+    }
   }
 
   return (
@@ -340,7 +385,7 @@ const Estimate = () => {
         lg
         style={{ marginRight: '2em', marginBottom: '25em' }}
       >
-        {defaultQuestions
+        {questions
           .filter((question) => question.active)
           .map((question) => (
             <Fragment key={question.id}>
@@ -392,81 +437,7 @@ const Estimate = () => {
               </Grid>
             </Fragment>
           ))}
-        {/* <Grid item>
-          <Typography
-            variant='h2'
-            align='center'
-            style={{
-              fontWeight: 500,
-              marginBottom: '2.5em',
-              fontSize: '2.25rem',
-              marginTop: '5em',
-              lineHeight: '1.25em',
-            }}
-            gutterBottom
-          >
-            Which service are you interested in?
-          </Typography>
-        </Grid> */}
-        {/* <Grid item container>
-          <Grid item container direction='column' md>
-            <Grid item style={{ maxWidth: '12em' }}>
-              <Typography
-                variant='h6'
-                align='center'
-                gutterBottom
-                style={{ lineHeight: 1, marginBottom: '1em' }}
-              >
-                Computer Software Development
-              </Typography>
-            </Grid>
-            <Grid item>
-              <img
-                src={software}
-                alt='Three floating screens'
-                className={classes.icon}
-              />
-            </Grid>
-          </Grid>
-          <Grid item container direction='column' md>
-            <Grid item style={{ maxWidth: '12em' }}>
-              <Typography
-                variant='h6'
-                align='center'
-                gutterBottom
-                style={{ lineHeight: 1, marginBottom: '1em' }}
-              >
-                iOS/Android App Development
-              </Typography>
-            </Grid>
-            <Grid item>
-              <img
-                src={mobile}
-                alt='outlines of phones and tablets'
-                className={classes.icon}
-              />
-            </Grid>
-          </Grid>
-          <Grid item container direction='column' md>
-            <Grid item style={{ maxWidth: '12em' }}>
-              <Typography
-                variant='h6'
-                align='center'
-                gutterBottom
-                style={{ lineHeight: 1, marginBottom: '1em' }}
-              >
-                Website Development
-              </Typography>
-            </Grid>
-            <Grid item>
-              <img
-                src={website}
-                alt='computer outline'
-                className={classes.icon}
-              />
-            </Grid>
-          </Grid>
-        </Grid> */}
+
         <Grid
           item
           container
@@ -474,10 +445,30 @@ const Estimate = () => {
           style={{ width: '18em', marginTop: '3em' }}
         >
           <Grid item>
-            <img src={backArrow} alt='Previous Question' />
+            <IconButton
+              disabled={navigationPreviousDisabled() === true}
+              onClick={previousQuestion}
+            >
+              <img
+                src={
+                  navigationPreviousDisabled() ? backArrowDisabled : backArrow
+                }
+                alt='Previous Question'
+              />
+            </IconButton>
           </Grid>
           <Grid item>
-            <img src={forwardArrow} alt='Next Question' />
+            <IconButton
+              disabled={navigationNextDisabled()}
+              onClick={nextQuestion}
+            >
+              <img
+                src={
+                  navigationNextDisabled() ? forwardArrowDisabled : forwardArrow
+                }
+                alt='Next Question'
+              />
+            </IconButton>
           </Grid>
         </Grid>
         <Grid item>
