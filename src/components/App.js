@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
 } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles'
 
@@ -18,64 +18,65 @@ import Websites from './Websites'
 import RevolutionPage from './RevolutionPage'
 import About from './About'
 import Contact from './Contact'
+import Estimate from './Estimate'
 
 function App() {
-	const [value, setValue] = useState(0)
-	const [selectedIndex, setSelectedIndex] = useState(0)
+  const [value, setValue] = useState(0)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
-	return (
-		<div className='App'>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Header
-						value={value}
-						setValue={setValue}
-						selectedIndex={selectedIndex}
-						setSelectedIndex={setSelectedIndex}
-					/>
-					<Switch>
-						<Route exact path='/'>
-							<LandingPage
-								setValue={setValue}
-								setSelectedIndex={setSelectedIndex}
-							/>
-						</Route>
-						<Route exact path='/services'>
-							<Services />
-						</Route>
-						<Route exact path='/customsoftware'>
-							<CustomSoftwareDevelopment setSelectedIndex={setSelectedIndex} />
-						</Route>
-						<Route exact path='/mobileapps'>
-							<MobileApps setSelectedIndex={setSelectedIndex} />
-						</Route>
-						<Route exact path='/websites'>
-							<Websites setSelectedIndex={setSelectedIndex} />
-						</Route>
-						<Route exact path='/revolution'>
-							<RevolutionPage />
-						</Route>
-						<Route exact path='/about'>
-							<About />
-						</Route>
-						<Route exact path='/contact'>
-							<Contact />
-						</Route>
-						<Route exact path='/estimate'>
-							<div>Free Estimate</div>
-						</Route>
-						<Redirect to='/' />
-					</Switch>
-					<Footer
-						value={value}
-						setValue={setValue}
-						selectedIndex={selectedIndex}
-						setSelectedIndex={setSelectedIndex}
-					/>
-				</Router>
-			</ThemeProvider>
-		</div>
-	)
+  return (
+    <div className='App'>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Header
+            value={value}
+            setValue={setValue}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+          <Switch>
+            <Route exact path='/'>
+              <LandingPage
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            </Route>
+            <Route exact path='/services'>
+              <Services />
+            </Route>
+            <Route exact path='/customsoftware'>
+              <CustomSoftwareDevelopment setSelectedIndex={setSelectedIndex} />
+            </Route>
+            <Route exact path='/mobileapps'>
+              <MobileApps setSelectedIndex={setSelectedIndex} />
+            </Route>
+            <Route exact path='/websites'>
+              <Websites setSelectedIndex={setSelectedIndex} />
+            </Route>
+            <Route exact path='/revolution'>
+              <RevolutionPage />
+            </Route>
+            <Route exact path='/about'>
+              <About />
+            </Route>
+            <Route exact path='/contact'>
+              <Contact />
+            </Route>
+            <Route exact path='/estimate'>
+              <Estimate />
+            </Route>
+            <Redirect to='/' />
+          </Switch>
+          <Footer
+            value={value}
+            setValue={setValue}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+        </Router>
+      </ThemeProvider>
+    </div>
+  )
 }
 
 export default App
