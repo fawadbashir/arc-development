@@ -1,4 +1,4 @@
-[build]
-base = "arc-development/"
-command = "yarn run build"
-publish = "arc-development/build/"
+# [build]
+# base = "arc-development/"
+# command = "yarn run build"
+# publish = "arc-development/build/"
