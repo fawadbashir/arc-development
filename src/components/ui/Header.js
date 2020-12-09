@@ -231,7 +231,7 @@ const Header = ({ value, setValue, selectedIndex, setSelectedIndex }) => {
         to='/estimate'
         variant='contained'
         color='secondary'
-        onClick={() => setValue(5)}
+      // onClick={() => setValue(5)}
       >
         Free Estimate
       </Button>

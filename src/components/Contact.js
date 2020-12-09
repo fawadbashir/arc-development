@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   dialogContainer: {
-    padding: '5em 20em',
+    padding: '5em 25em',
 
     [theme.breakpoints.down('md')]: {
       padding: '5em 15em',
@@ -198,9 +198,9 @@ const Contact = () => {
           <Grid
             container
             direction='column'
-            // justify='center'
-            // alignItems='center'
-            // lg={3}
+          // justify='center'
+          // alignItems='center'
+          // lg={3}
           >
             <Grid item>
               <Typography variant='h2' style={{ lineHeight: 1 }}>
@@ -217,7 +217,7 @@ const Contact = () => {
               container
               item
               style={{ marginTop: '2em' }}
-              // alignItems='flex-end'
+            // alignItems='flex-end'
             >
               <Grid item>
                 <img
@@ -392,7 +392,7 @@ const Contact = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item >
                 <TextField
                   fullWidth
                   InputProps={{ underline: 'false' }}
